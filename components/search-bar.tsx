@@ -20,17 +20,15 @@ export default function SearchBar() {
     fetchTrendingSearches()
   }, [])
 
-  const fetchTrendingSearches = () => {
-    const trends = [
-      "Latest news today",
-      "Best AI tools 2025",
-      "Web development tips",
-      "JavaScript tutorials",
-      "React best practices",
-      "Python programming",
-      "Machine learning basics",
-    ]
-    setTrendingSearches(trends)
+  const fetchTrendingSearches = async () => {
+    try {
+      const response = await fetch("/api/trending")
+      const trends = await response.json()
+      setTrendingSearches(trends)
+    } catch (error) {
+      console.error("[v0] Failed to fetch trending:", error)
+      setTrendingSearches([])
+    }
   }
 
   const fetchGoogleSuggestions = async (searchQuery: string) => {
@@ -45,19 +43,17 @@ export default function SearchBar() {
     }
 
     try {
-      const response = await fetch(
-        `https://www.google.com/complete/search?client=chrome&q=${encodeURIComponent(searchQuery)}`
-      )
-      const data = await response.json()
+      const response = await fetch(`/api/suggestions?q=${encodeURIComponent(searchQuery)}`)
+      const googleSuggestions = await response.json()
 
-      const googleSuggestions = (data[1] || []).slice(0, 8).map((text: string) => ({
+      const formattedSuggestions = (googleSuggestions || []).map((text: string) => ({
         text,
         type: "autocomplete" as const,
       }))
 
-      setSuggestions(googleSuggestions)
+      setSuggestions(formattedSuggestions)
     } catch (error) {
-      console.log("[v0] Failed to fetch Google suggestions")
+      console.error("[v0] Failed to fetch suggestions")
       setSuggestions([])
     }
   }
@@ -222,3 +218,4 @@ export default function SearchBar() {
     </div>
   )
 }
+\
