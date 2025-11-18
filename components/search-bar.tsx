@@ -165,6 +165,7 @@ export default function SearchBar() {
             {/* Autocomplete suggestions */}
             {suggestions
               .filter((s) => s.type === "autocomplete")
+              .slice(0,3)
               .map((suggestion, index) => (
                 <button
                   key={`autocomplete-${index}`}
@@ -191,6 +192,7 @@ export default function SearchBar() {
             {/* Trending searches section */}
             {suggestions
               .filter((s) => s.type === "trending")
+              .slice(0,3)
               .map((suggestion, index) => (
                 <button
                   key={`trending-${index}`}
