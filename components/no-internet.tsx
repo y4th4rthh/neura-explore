@@ -58,8 +58,3 @@ export default function NoInternet() {
     </div>
   )
 }
-</parameter>
-</invoke>
-<invoke name="MoveFile">
-<parameter name="from">app/page.tsx</parameter>
-<parameter name="to">app/page-old.tsx
