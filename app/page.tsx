@@ -103,7 +103,9 @@ export default function Home() {
         >
           <Settings className="w-6 h-6" />
         </button>
+          {wallpaper && (
         <WeatherTimeWidget />
+      })
       </header>
 
       <SettingsModal
