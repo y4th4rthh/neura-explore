@@ -24,7 +24,7 @@ export default function SearchBar() {
     try {
       const response = await fetch("/api/trending")
       const trends = await response.json()
-      setTrendingSearches(trends)
+      setTrendingSearches(trends.slice(0,3))
     } catch (error) {
       console.error("[v0] Failed to fetch trending:", error)
       setTrendingSearches([])
@@ -51,7 +51,7 @@ export default function SearchBar() {
         type: "autocomplete" as const,
       }))
 
-      setSuggestions(formattedSuggestions)
+      setSuggestions(formattedSuggestions.slice(0,3))
     } catch (error) {
       console.error("[v0] Failed to fetch suggestions")
       setSuggestions([])
@@ -122,7 +122,7 @@ export default function SearchBar() {
     <div className="w-full max-w-4xl">
       {/* Search Input Container */}
       <div className="relative">
-        <div className="text-gray-200 bg-[#FFFFFF1A] w-full px-3 py-2 pr-10 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
+        <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
           <div className="flex items-center gap-4">
             {/* Search Icon */}
             <svg className="w-5 h-5 text-white/40 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@ export default function SearchBar() {
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               placeholder="Search anything, visit websites..."
-              className="flex-1 bg-transparent text-white placeholder-white/40 outline-none text-base font-light"
+              className="flex-1  bg-transparent text-white placeholder-white/40 outline-none text-base font-light"
             />
 
             {/* Send Button */}
@@ -165,7 +165,6 @@ export default function SearchBar() {
             {/* Autocomplete suggestions */}
             {suggestions
               .filter((s) => s.type === "autocomplete")
-              .slice(0,3)
               .map((suggestion, index) => (
                 <button
                   key={`autocomplete-${index}`}
@@ -192,7 +191,6 @@ export default function SearchBar() {
             {/* Trending searches section */}
             {suggestions
               .filter((s) => s.type === "trending")
-              .slice(0,3)
               .map((suggestion, index) => (
                 <button
                   key={`trending-${index}`}
