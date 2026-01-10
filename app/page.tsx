@@ -64,7 +64,7 @@ export default function Home() {
   if (!hasChecked) {
     return (
       <div
-        className="font-sans min-h-screen bg-[#0a0a0a]"
+        className="font-sans min-h-screen bg-[#101010]"
         style={{
           background: wallpaper
             ? `url(${wallpaper}) center/cover no-repeat fixed`
@@ -82,7 +82,7 @@ export default function Home() {
 
   return (
     <div
-      className="font-sans min-h-screen bg-[#0a0a0a]"
+      className="font-sans min-h-screen bg-[#101010]"
       style={{
         background: wallpaper
           ? `url(${wallpaper}) center/cover no-repeat fixed`
