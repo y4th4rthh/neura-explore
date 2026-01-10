@@ -4,7 +4,7 @@ import NoInternet from "@/components/no-internet"
 import WeatherTimeWidget from "@/components/weather-time-widget"
 import SettingsModal from "@/components/settings-modal"
 import { useState, useEffect } from "react"
-import { Zap, Globe, Settings } from 'lucide-react'
+import { Zap, Atom, Settings } from 'lucide-react'
 
 export default function Home() {
   const [showGlobe, setShowGlobe] = useState(true)
@@ -123,7 +123,7 @@ export default function Home() {
             <div className="inline-flex animate-bounce items-center justify-center mb-6">
               <div className="w-18 h-18 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
                 {showGlobe ? (
-                  <Globe className="w-8 h-8 transition-opacity duration-300" />
+                  <Atom className="w-8 h-8 transition-opacity duration-300" />
                 ) : (
                   <Zap className="w-8 h-8 transition-opacity duration-300" />
                 )}
