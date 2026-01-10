@@ -69,9 +69,7 @@ export default function Home() {
           background: wallpaper
             ? `url(${wallpaper}) center/cover no-repeat fixed`
             : `
-          radial-gradient(ellipse at top, rgba(255, 107, 0, 0.06) 0%, transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(255, 107, 0, 0.05) 0%, transparent 50%),
-          rgb(0, 0, 0)
+         
         `,
         }}
       />
@@ -89,9 +87,7 @@ export default function Home() {
         background: wallpaper
           ? `url(${wallpaper}) center/cover no-repeat fixed`
           : `
-          radial-gradient(ellipse at top, rgba(255, 107, 0, 0.06) 0%, transparent 50%),
-          radial-gradient(ellipse at bottom right, rgba(255, 107, 0, 0.05) 0%, transparent 50%),
-          rgb(0, 0, 0)
+          
         `,
       }}
     >
