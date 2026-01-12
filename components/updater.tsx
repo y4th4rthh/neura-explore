@@ -24,7 +24,7 @@ interface UpdaterModalProps {
   onOpenChange: (open: boolean) => void
 }
 
-export function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) {
+export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) {
   const [loading, setLoading] = useState(false)
   const [release, setRelease] = useState<GitHubRelease | null>(null)
   const [error, setError] = useState<string | null>(null)
