@@ -75,9 +75,9 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
   const isUpdateAvailable =
     release && compareVersions(release.tag_name, CURRENT_VERSION) > 0
 
-  const handleDownload = () => {
-    if (downloadUrl) window.open(downloadUrl, "_blank")
-  }
+  // const handleDownload = () => {
+  //   if (downloadUrl) window.open(downloadUrl, "_blank")
+  // }
 
   if (!open) return null
 
@@ -168,13 +168,16 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
             </button>
 
             {downloadUrl && (
-              <button
-                className="flex-1 px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
-                onClick={handleDownload}
-              >
-                <Download className="h-4 w-4" />
-                Download
-              </button>
+             <a
+  href={downloadUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex-1 px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+>
+  <Download className="h-4 w-4" />
+  Download
+</a>
+
             )}
           </div>
         </div>
