@@ -55,7 +55,6 @@ export default function SettingsModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={() => onOpenChange(false)}
       />
       <div className=" bg-[#12121299]/50 border border-orange-500/30 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full shadow-2xl">
         {/* Header */}
