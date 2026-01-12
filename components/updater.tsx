@@ -102,9 +102,9 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
             </div>
             <button
               onClick={() => onOpenChange(false)}
-              className="text-orange-500/70 hover:text-orange-500 transition-colors"
+              className="text-white transition-colors"
             >
-              <X className="h-5 w-5" />
+              <X className="h-6 w-6" />
             </button>
           </div>
 
