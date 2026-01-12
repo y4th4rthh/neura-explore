@@ -1,16 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Download, RefreshCw, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
+import { Download, RefreshCw, CheckCircle, AlertCircle, Loader2, X } from "lucide-react"
 
 const CURRENT_VERSION = "1.0.0"
 
@@ -88,89 +79,114 @@ export function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) {
     if (downloadUrl) window.open(downloadUrl, "_blank")
   }
 
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <RefreshCw className="h-5 w-5" />
-            Application Updater
-          </DialogTitle>
-          <DialogDescription>
-            Check for updates and download the latest version
-          </DialogDescription>
-        </DialogHeader>
+  if (!open) return null
 
-        <div className="space-y-4 py-4">
-          <div className="flex justify-between rounded-lg border p-3">
-            <span className="text-sm text-muted-foreground">
-              Current Version
-            </span>
-            <Badge variant="secondary">v{CURRENT_VERSION}</Badge>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={() => onOpenChange(false)}
+      />
+      
+      <div className="relative z-50 w-full max-w-md mx-4 bg-orange-500/10 border border-orange-500/30 rounded-lg shadow-xl">
+        <div className="p-6">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-orange-500 flex items-center gap-2">
+                <RefreshCw className="h-5 w-5" />
+                Application Updater
+              </h2>
+              <p className="text-sm text-orange-500/70 mt-1">
+                Check for updates and download the latest version
+              </p>
+            </div>
+            <button
+              onClick={() => onOpenChange(false)}
+              className="text-orange-500/70 hover:text-orange-500 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
 
-          {loading && (
-            <div className="flex justify-center py-6">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <div className="space-y-4 py-4">
+            <div className="flex justify-between items-center rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
+              <span className="text-sm text-orange-500/70">
+                Current Version
+              </span>
+              <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-orange-500/20 text-orange-500">
+                v{CURRENT_VERSION}
+              </span>
             </div>
-          )}
 
-          {error && (
-            <div className="flex gap-2 rounded-lg border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-              <AlertCircle className="h-4 w-4" />
-              {error}
-            </div>
-          )}
-
-          {!loading && release && (
-            <>
-              <div className="flex justify-between rounded-lg border p-3">
-                <span className="text-sm text-muted-foreground">
-                  Latest Version
-                </span>
-                <Badge variant={isUpdateAvailable ? "default" : "secondary"}>
-                  {release.tag_name}
-                </Badge>
+            {loading && (
+              <div className="flex justify-center py-6">
+                <Loader2 className="h-8 w-8 animate-spin text-orange-500/50" />
               </div>
+            )}
 
-              {isUpdateAvailable ? (
-                <div className="rounded-lg border border-primary/50 bg-primary/10 p-4">
-                  <div className="flex items-center gap-2 text-primary">
-                    <Download className="h-5 w-5" />
-                    Update available
-                  </div>
+            {error && (
+              <div className="flex gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400">
+                <AlertCircle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {!loading && release && (
+              <>
+                <div className="flex justify-between items-center rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
+                  <span className="text-sm text-orange-500/70">
+                    Latest Version
+                  </span>
+                  <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
+                    isUpdateAvailable 
+                      ? "bg-orange-500 text-white" 
+                      : "bg-orange-500/20 text-orange-500"
+                  }`}>
+                    {release.tag_name}
+                  </span>
                 </div>
-              ) : (
-                <div className="rounded-lg border border-green-500/50 bg-green-500/10 p-4">
-                  <div className="flex items-center gap-2 text-green-500">
-                    <CheckCircle className="h-5 w-5" />
-                    You’re up to date
+
+                {isUpdateAvailable ? (
+                  <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
+                    <div className="flex items-center gap-2 text-orange-500">
+                      <Download className="h-5 w-5" />
+                      <span className="font-medium">Update available</span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                ) : (
+                  <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-4">
+                    <div className="flex items-center gap-2 text-green-500">
+                      <CheckCircle className="h-5 w-5" />
+                      <span className="font-medium">You're up to date</span>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="flex-1"
-            onClick={fetchLatestRelease}
-            disabled={loading}
-          >
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Check again
-          </Button>
+          <div className="flex gap-2 mt-4">
+            <button
+              className="flex-1 px-4 py-2 rounded-md border border-orange-500/30 bg-orange-500/5 text-orange-500 hover:bg-orange-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              onClick={fetchLatestRelease}
+              disabled={loading}
+            >
+              <RefreshCw className="h-4 w-4" />
+              Check again
+            </button>
 
-          {downloadUrl && (
-            <Button className="flex-1" onClick={handleDownload}>
-              <Download className="mr-2 h-4 w-4" />
-              Download
-            </Button>
-          )}
+            {downloadUrl && (
+              <button
+                className="flex-1 px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
+                onClick={handleDownload}
+              >
+                <Download className="h-4 w-4" />
+                Download
+              </button>
+            )}
+          </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   )
 }
