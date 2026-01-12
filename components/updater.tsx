@@ -92,11 +92,11 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
         <div className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h2 className="text-lg font-semibold text-orange-500 flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-white flex items-center gap-2">
                 <RefreshCw className="h-5 w-5" />
                 Application Updater
               </h2>
-              <p className="text-sm text-orange-500/70 mt-1">
+              <p className="text-sm text-white mt-1">
                 Check for updates and download the latest version
               </p>
             </div>
