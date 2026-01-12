@@ -96,7 +96,7 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
                 <RefreshCw className="h-5 w-5" />
                 Application Updater
               </h2>
-              <p className="text-sm text-white mt-1">
+              <p className="text-sm text-white mt-4">
                 Check for updates and download the latest version
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
             {!loading && release && (
               <>
                 <div className="flex justify-between items-center rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
-                  <span className="text-sm text-orange-500/70">
+                  <span className="text-base text-orange-500/70">
                     Latest Version
                   </span>
                   <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
@@ -141,8 +141,8 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
                 {isUpdateAvailable ? (
                   <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
                     <div className="flex items-center gap-2 text-orange-500">
-                      <Download className="h-5 w-5" />
-                      <span className="font-medium">Update available</span>
+                      <Download className="h-4 w-4" />
+                      <span className="font-medium">Latest update available</span>
                     </div>
                   </div>
                 ) : (
