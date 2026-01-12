@@ -88,7 +88,7 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
         onClick={() => onOpenChange(false)}
       />
       
-      <div className="relative z-50 w-full max-w-md mx-4 bg-orange-500/10 border border-orange-500/30 rounded-lg shadow-xl">
+      <div className="relative z-50 w-full max-w-md mx-4 bg-[#12121299]/50 border border-orange-500/30 rounded-lg shadow-xl">
         <div className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
@@ -109,14 +109,6 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
           </div>
 
           <div className="space-y-4 py-4">
-            <div className="flex justify-between items-center rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
-              <span className="text-sm text-orange-500/70">
-                Current Version
-              </span>
-              <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-orange-500/20 text-orange-500">
-                v{CURRENT_VERSION}
-              </span>
-            </div>
 
             {loading && (
               <div className="flex justify-center py-6">
