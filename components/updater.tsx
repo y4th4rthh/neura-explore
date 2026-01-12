@@ -169,7 +169,7 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
 
             {downloadUrl && (
              <a
-  href={downloadUrl}
+  href="https://github.com/y4th4rthh/neura.ai-releases/releases/download/v11.0/neura.explore.exe"
   target="_blank"
   rel="noopener noreferrer"
   className="flex-1 px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
