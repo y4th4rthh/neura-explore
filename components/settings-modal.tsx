@@ -53,7 +53,7 @@ export default function SettingsModal({
 
   return (
     <div className="fixed inset-0  z-50 flex items-center justify-center p-4">
-      <div className=" bg-[#12121299]/50 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full shadow-2xl">
+      <div className=" bg-[#12121299]/50 border border-orange-500/30 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-white">Settings</h2>
