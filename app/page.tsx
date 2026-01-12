@@ -3,8 +3,9 @@ import SearchBar from "@/components/search-bar"
 import NoInternet from "@/components/no-internet"
 import WeatherTimeWidget from "@/components/weather-time-widget"
 import SettingsModal from "@/components/settings-modal"
+import UpdaterModal from "@/components/updater"
 import { useState, useEffect } from "react"
-import { Zap, Atom, Settings } from 'lucide-react'
+import { Zap, Atom, Settings, RefreshCw } from 'lucide-react'
 
 export default function Home() {
   const [showGlobe, setShowGlobe] = useState(true)
@@ -13,6 +14,7 @@ export default function Home() {
   const [showWhatsNew, setShowWhatsNew] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [wallpaper, setWallpaper] = useState('')
+  const [showUpdater, setShowUpdater] = useState(false)
 
   useEffect(() => {
     // Load wallpaper from localStorage on mount
@@ -92,6 +94,15 @@ export default function Home() {
       }}
     >
       <header className="fixed top-0 right-0 p-6 z-30 flex items-start gap-4">
+
+        <button
+    onClick={() => setShowUpdater(true)}
+    className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+    title="Check for updates"
+  >
+    <RefreshCw className="w-6 h-6" />
+  </button>
+        
         <button
           onClick={() => setShowSettings(true)}
           className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
@@ -99,6 +110,7 @@ export default function Home() {
         >
           <Settings className="w-6 h-6" />
         </button>
+
           {wallpaper && (
         <WeatherTimeWidget />
       )}
@@ -110,6 +122,12 @@ export default function Home() {
         onWallpaperChange={handleWallpaperChange}
         currentWallpaper={wallpaper}
       />
+
+      <UpdaterModal
+  open={showUpdater}
+  onOpenChange={setShowUpdater}
+/>
+
 
       {/* Main Content */}
       <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12">
