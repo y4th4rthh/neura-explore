@@ -122,7 +122,7 @@ export default function SearchBar() {
     <div className="w-full max-w-4xl">
       {/* Search Input Container */}
       <div className="relative">
-        <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-4 border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
+        <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-[2px] border-white/25 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
           <div className="flex items-center gap-4">
             {/* Search Icon */}
             <svg className="w-5 h-5 text-white/40 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,7 @@ export default function SearchBar() {
         </div>
 
         {showSuggestions && suggestions.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-3 bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl overflow-hidden z-10 shadow-2xl max-h-96 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-3 bg-white/5 border border-[2px] border-white/25 rounded-xl backdrop-blur-xl overflow-hidden z-10 shadow-2xl max-h-96 overflow-y-auto">
             {/* Autocomplete suggestions */}
             {suggestions
               .filter((s) => s.type === "autocomplete")
