@@ -56,7 +56,7 @@ export default function SettingsModal({
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
       />
-      <div className=" bg-[#12121299]/50 border border-orange-500/30 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full shadow-2xl">
+      <div className=" bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-white">Settings</h2>
@@ -80,7 +80,7 @@ export default function SettingsModal({
                 type="file"
                 accept="image/*"
                 onChange={handleFileUpload}
-                className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-500 file:text-white hover:file:bg-orange-600 cursor-pointer"
+                className="block w-full text-sm text-orange-500/70 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border file:border-orange-500/20  file:text-orange-500/70 file:bg-orange-500/5 cursor-pointer"
               />
             </label>
           </div>
@@ -99,7 +99,7 @@ export default function SettingsModal({
                 />
                 <button
                   onClick={handleUrlSubmit}
-                  className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors text-sm"
+                  className="px-4 py-2 border border-orange-500/20 bg-orange-500/5 text-orange-500/70 rounded-lg font-medium transition-colors text-sm"
                 >
                   Apply
                 </button>
