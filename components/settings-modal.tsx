@@ -80,7 +80,7 @@ export default function SettingsModal({
                 type="file"
                 accept="image/*"
                 onChange={handleFileUpload}
-                className="block w-full text-sm text-orange-500/70 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border file:border-orange-500/20  file:text-orange-500/70 file:bg-orange-500/5 cursor-pointer"
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:border file:border-orange-500/20  file:text-orange-500/70 file:bg-orange-500/5 cursor-pointer"
               />
             </label>
           </div>
