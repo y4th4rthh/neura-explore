@@ -88,7 +88,7 @@ export default function UpdaterModal({ open, onOpenChange }: UpdaterModalProps) 
         onClick={() => onOpenChange(false)}
       />
       
-      <div className="relative z-50 w-full max-w-md mx-4 bg-white/5 border border-white/10 rounded-lg shadow-xl">
+      <div className="relative z-50 w-full max-w-md mx-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-xl shadow-xl">
         <div className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
