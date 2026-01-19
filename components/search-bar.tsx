@@ -212,7 +212,7 @@ export default function SearchBar() {
       </div>
 
       {/* Info Text */}
-      <p className="text-center text-white/40 text-xs mt-6 font-light tracking-wide">
+      <p className="text-center text-white/70 text-xs mt-6 font-light tracking-wide">
         Press Enter or click the arrow to search
       </p>
     </div>
