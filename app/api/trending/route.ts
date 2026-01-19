@@ -32,6 +32,8 @@
 //   }
 // }
 
+export const runtime = "nodejs"
+
 export async function GET() {
   const fallback = [
     "Latest news today",
@@ -46,7 +48,10 @@ export async function GET() {
   try {
     const res = await fetch(
       "https://trends.google.com/trends/api/dailytrends?geo=IN",
-      { headers: { "User-Agent": "Mozilla/5.0" }, cache: "no-store" }
+      {
+        headers: { "User-Agent": "Mozilla/5.0" },
+        cache: "no-store",
+      }
     )
 
     const text = await res.text()
