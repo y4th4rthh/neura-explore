@@ -135,7 +135,7 @@ export default function Home() {
         <div className="mb-16 text-center">
           {!wallpaper && (
             <div className="inline-flex animate-bounce items-center justify-center mb-6">
-              <div className="w-18 h-18 bg-gradient-to-br from-[#ff6b00] to-[#ff8c42] rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-18 h-18 bg-gradient-to-br from-[#ff6b00] to-[#ff8c42] rounded-2xl flex items-center justify-center shadow-lg max-[600px]:hidden">
                 {showGlobe ? (
                   <Atom className="w-8 h-8 transition-opacity duration-300" />
                 ) : (
