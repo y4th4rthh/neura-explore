@@ -32,10 +32,12 @@
 //   }
 // }
 
+
 export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
 
 export async function GET() {
-  const fallback = [
+  const fallbackTrends = [
     "Latest news today",
     "Best AI tools 2025",
     "Web development tips",
@@ -46,25 +48,27 @@ export async function GET() {
   ]
 
   try {
-    const res = await fetch(
-      "https://trends.google.com/trends/api/dailytrends?geo=IN",
-      {
-        headers: { "User-Agent": "Mozilla/5.0" },
-        cache: "no-store",
-      }
-    )
+    const r = await fetch("https://www.reddit.com/r/popular.json?limit=7", {
+      headers: { "User-Agent": "Mozilla/5.0" },
+      cache: "no-store",
+    })
 
-    const text = await res.text()
-    const json = JSON.parse(text.replace(")]}',", ""))
+    const h = await fetch("https://hn.algolia.com/api/v1/search?tags=front_page", {
+      cache: "no-store",
+    })
 
-    const searches =
-      json.default.trendingSearchesDays[0].trendingSearches
-        .map((x: any) => x.title.query)
-        .slice(0, 7)
+    const reddit = await r.json()
+    const hn = await h.json()
 
-    return Response.json(searches.length ? searches : fallback)
-  } catch (e) {
-    console.error("Google Trends failed:", e)
-    return Response.json(fallback)
+    const titles = [
+      ...(reddit.data?.children || []).map((x: any) => x.data.title),
+      ...(hn.hits || []).map((x: any) => x.title),
+    ].slice(0, 7)
+
+    return Response.json(titles.length ? titles : fallbackTrends)
+  } catch (error) {
+    console.error("[v0] Failed to fetch trending searches:", error)
+    return Response.json(fallbackTrends)
   }
 }
+
