@@ -48,27 +48,20 @@ export async function GET() {
   ]
 
   try {
-    const r = await fetch("https://www.reddit.com/r/popular.json?limit=7", {
+    const r = await fetch("https://www.reddit.com/r/popular.json?limit=10", {
       headers: { "User-Agent": "Mozilla/5.0" },
       cache: "no-store",
     })
 
-    const h = await fetch("https://hn.algolia.com/api/v1/search?tags=front_page", {
-      cache: "no-store",
-    })
+    if (!r.ok) throw new Error("Reddit failed")
 
     const reddit = await r.json()
-    const hn = await h.json()
 
-    const titles = [
-      ...(reddit.data?.children || []).map((x: any) => x.data.title),
-      ...(hn.hits || []).map((x: any) => x.title),
-    ].slice(0, 7)
+    const titles = reddit.data.children.map((x:any)=>x.data.title).slice(0,7)
 
     return Response.json(titles.length ? titles : fallbackTrends)
-  } catch (error) {
-    console.error("[v0] Failed to fetch trending searches:", error)
+  } catch (e) {
+    console.error("Trending API failed:", e)
     return Response.json(fallbackTrends)
   }
 }
-
