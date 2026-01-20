@@ -132,7 +132,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12">
         {/* Logo */}
-        <div className="mb-12 text-center">
+        <div className="mb-8 text-center">
           {!wallpaper && (
             <div className="inline-flex animate-bounce items-center justify-center mb-6">
               <div className="w-18 h-18 bg-gradient-to-br from-[#ff6b00] to-[#ff8c42] rounded-[16px] flex items-center justify-center shadow-lg [@media(max-height:600px)]:hidden">
