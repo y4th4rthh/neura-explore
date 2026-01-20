@@ -137,9 +137,9 @@ export default function Home() {
             <div className="inline-flex animate-bounce items-center justify-center mb-6">
               <div className="w-18 h-18 bg-gradient-to-br from-[#ff6b00] to-[#ff8c42] rounded-[16px] flex items-center justify-center shadow-lg [@media(max-height:600px)]:hidden">
                 {showGlobe ? (
-                  <Atom className="w-12 h-12 transition-opacity duration-300" />
+                  <Atom className="w-10 h-10 transition-opacity duration-300" />
                 ) : (
-                  <Zap className="w-12 h-12 transition-opacity duration-300" />
+                  <Zap className="w-10 h-10 transition-opacity duration-300" />
                 )}
               </div>
             </div>
