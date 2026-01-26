@@ -87,9 +87,9 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
   }
 
   return (
-    <div className="mt-8 w-full max-w-2xl">
+    <div className="mt-6 flex justify-center">
       {/* Quick Links Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         {links.map((link, index) => (
           <div
             key={index}
@@ -99,20 +99,20 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 hover:shadow-lg"
+              className="flex flex-col items-center gap-1.5 p-2 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 hover:shadow-lg w-20"
             >
               <div className="relative">
                 <img
                   src={link.favicon}
                   alt={link.title}
-                  className="w-10 h-10 rounded-lg object-cover"
+                  className="w-8 h-8 rounded-md object-cover"
                   onError={(e) => {
                     const img = e.target as HTMLImageElement
                     img.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>'
                   }}
                 />
               </div>
-              <span className="text-xs text-center text-white/70 line-clamp-2 group-hover:text-white transition-colors">
+              <span className="text-[10px] text-center text-white/70 line-clamp-1 group-hover:text-white transition-colors">
                 {link.title}
               </span>
             </a>
@@ -120,9 +120,9 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
             {/* Remove Button */}
             <button
               onClick={() => handleRemoveLink(index)}
-              className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-red-500 hover:bg-red-600 rounded-full p-1 shadow-lg"
+              className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-red-500 hover:bg-red-600 rounded-full p-0.5 shadow-lg"
             >
-              <X className="w-3 h-3 text-white" />
+              <X className="w-2.5 h-2.5 text-white" />
             </button>
           </div>
         ))}
@@ -130,13 +130,13 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
         {/* Add New Link Button */}
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300 group"
+          className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg bg-white/5 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300 group w-20"
         >
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 group-hover:bg-orange-500/20 transition-colors">
-            <Plus className="w-5 h-5 text-white/60 group-hover:text-orange-500 transition-colors" />
+          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-white/10 group-hover:bg-orange-500/20 transition-colors">
+            <Plus className="w-4 h-4 text-white/60 group-hover:text-orange-500 transition-colors" />
           </div>
-          <span className="text-xs text-center text-white/50 group-hover:text-orange-500 transition-colors">
-            Add Link
+          <span className="text-[10px] text-center text-white/50 group-hover:text-orange-500 transition-colors line-clamp-1">
+            Add
           </span>
         </button>
       </div>
