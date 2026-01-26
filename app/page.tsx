@@ -1,3 +1,4 @@
+
 // "use client"
 // import SearchBar from "@/components/search-bar"
 // import NoInternet from "@/components/no-internet"
@@ -20,7 +21,17 @@
 //     userName: '',
 //     showWeatherWidget: true,
 //     showUpdaterButton: true,
+//     showCustomMessage: true,
 //   })
+
+//   // ====== DEVELOPER CONFIGURATION ======
+//   // Customize your message here:
+//   const CUSTOM_MESSAGE = {
+//     type: 'text', // 'text' or 'image'
+//     content: 'Happy Republic Day!', // Text content or image URL
+//     link: '', // Optional: URL to navigate when clicked (leave empty for no link)
+//   }
+//   // =====================================
 
 //   useEffect(() => {
 //     // Load wallpaper from localStorage on mount
@@ -93,6 +104,12 @@
 //     localStorage.setItem('neura-personalization', JSON.stringify(newSettings))
 //   }
 
+//   const handleCustomMessageClick = () => {
+//     if (CUSTOM_MESSAGE.link) {
+//       window.open(CUSTOM_MESSAGE.link, '_blank')
+//     }
+//   }
+
 //   // Show loading state while checking connection
 //   if (!hasChecked) {
 //     return (
@@ -125,15 +142,42 @@
 //       }}
 //     >
 //       <header className="fixed top-0 right-0 p-6 z-30 flex items-start gap-4">
-//          {personalization.showUpdaterButton && (
-//         <button
-//     onClick={() => setShowUpdater(true)}
-//     className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
-//     title="Check for updates"
-//   >
-//     <RefreshCw className="w-6 h-6" />
-//   </button>
-//       )}
+//         {/* Custom Message */}
+//         {personalization.showCustomMessage && (
+//           CUSTOM_MESSAGE.type === 'text' ? (
+//             <div
+//               onClick={handleCustomMessageClick}
+//               className={`text-white/80 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-sm font-medium ${
+//                 CUSTOM_MESSAGE.link ? 'cursor-pointer hover:bg-white/20 transition-colors' : ''
+//               }`}
+//               title={CUSTOM_MESSAGE.link ? 'Click to learn more' : ''}
+//             >
+//               {CUSTOM_MESSAGE.content}
+//             </div>
+//           ) : (
+//             <div
+//               onClick={handleCustomMessageClick}
+//               className={`${CUSTOM_MESSAGE.link ? 'cursor-pointer' : ''}`}
+//               title={CUSTOM_MESSAGE.link ? 'Click to learn more' : ''}
+//             >
+//               <img
+//                 src={CUSTOM_MESSAGE.content}
+//                 alt="Custom message"
+//                 className="h-10 w-auto rounded-lg hover:opacity-80 transition-opacity"
+//               />
+//             </div>
+//           )
+//         )}
+
+//         {personalization.showUpdaterButton && (
+//           <button
+//             onClick={() => setShowUpdater(true)}
+//             className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+//             title="Check for updates"
+//           >
+//             <RefreshCw className="w-6 h-6" />
+//           </button>
+//         )}
         
 //         <button
 //           onClick={() => setShowSettings(true)}
@@ -156,10 +200,9 @@
 //       />
 
 //       <UpdaterModal
-//   open={showUpdater}
-//   onOpenChange={setShowUpdater}
-// />
-
+//         open={showUpdater}
+//         onOpenChange={setShowUpdater}
+//       />
 
 //       {/* Main Content */}
 //       <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12">
@@ -192,6 +235,7 @@
 //     </div>
 //   )
 // }
+
 
 "use client"
 import SearchBar from "@/components/search-bar"
@@ -227,10 +271,33 @@ export default function Home() {
   }
   // =====================================
 
+  // Wallpaper categories for variety
+  const WALLPAPER_CATEGORIES = [
+    'nature', 'landscape', 'minimal', 'abstract', 
+    'architecture', 'texture', 'gradient', 'sky'
+  ]
+
+  const getRandomWallpaper = () => {
+    const category = WALLPAPER_CATEGORIES[Math.floor(Math.random() * WALLPAPER_CATEGORIES.length)]
+    const randomSeed = Math.floor(Math.random() * 1000)
+    // Using Unsplash Source API for random high-quality images
+    return `https://source.unsplash.com/1920x1080/?${category}&sig=${randomSeed}`
+  }
+
   useEffect(() => {
-    // Load wallpaper from localStorage on mount
-    const savedWallpaper = localStorage.getItem('neura-wallpaper') || ''
-    setWallpaper(savedWallpaper)
+    // Load wallpaper settings from localStorage on mount
+    const savedWallpaper = localStorage.getItem('neura-wallpaper')
+    const wallpaperMode = localStorage.getItem('neura-wallpaper-mode') || 'random' // 'random', 'custom', or 'default'
+
+    if (wallpaperMode === 'default') {
+      setWallpaper('')
+    } else if (wallpaperMode === 'custom' && savedWallpaper) {
+      setWallpaper(savedWallpaper)
+    } else {
+      // Random mode (default)
+      const randomWallpaper = getRandomWallpaper()
+      setWallpaper(randomWallpaper)
+    }
 
     const savedPersonalization = localStorage.getItem('neura-personalization')
     if (savedPersonalization) {
@@ -238,7 +305,21 @@ export default function Home() {
     }
   }, [])
 
-   useEffect(() => {
+  useEffect(() => {
+    // Random wallpaper rotation every minute
+    const wallpaperMode = localStorage.getItem('neura-wallpaper-mode') || 'random'
+    
+    if (wallpaperMode === 'random') {
+      const interval = setInterval(() => {
+        const randomWallpaper = getRandomWallpaper()
+        setWallpaper(randomWallpaper)
+      }, 60000) // 60000ms = 1 minute
+
+      return () => clearInterval(interval)
+    }
+  }, [])
+
+  useEffect(() => {
     const hour = new Date().getHours()
     const baseName = personalization.userName ? `, ${personalization.userName}` : ''
 
@@ -290,10 +371,11 @@ export default function Home() {
   const handleWallpaperChange = (newWallpaper: string) => {
     setWallpaper(newWallpaper)
     localStorage.setItem('neura-wallpaper', newWallpaper)
+    localStorage.setItem('neura-wallpaper-mode', 'custom')
     setShowSettings(false)
   }
 
-   const handlePersonalizationChange = (newSettings: PersonalizationSettings) => {
+  const handlePersonalizationChange = (newSettings: PersonalizationSettings) => {
     setPersonalization(newSettings)
     localStorage.setItem('neura-personalization', JSON.stringify(newSettings))
   }
@@ -312,9 +394,7 @@ export default function Home() {
         style={{
           background: wallpaper
             ? `url(${wallpaper}) center/cover no-repeat fixed`
-            : `
-         
-        `,
+            : `#101010`,
         }}
       />
     )
@@ -326,13 +406,11 @@ export default function Home() {
 
   return (
     <div
-      className="font-sans min-h-screen bg-[#101010]"
+      className="font-sans min-h-screen bg-[#101010] transition-all duration-700"
       style={{
         background: wallpaper
           ? `url(${wallpaper}) center/cover no-repeat fixed`
-          : `
-          
-        `,
+          : `#101010`,
       }}
     >
       <header className="fixed top-0 right-0 p-6 z-30 flex items-start gap-4">
