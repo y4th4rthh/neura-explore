@@ -222,7 +222,7 @@ export default function Home() {
   // Customize your message here:
   const CUSTOM_MESSAGE = {
     type: 'text', // 'text' or 'image'
-    content: '🎉 New features available!', // Text content or image URL
+    content: 'Happy Republic Day! 🇮🇳', // Text content or image URL
     link: '', // Optional: URL to navigate when clicked (leave empty for no link)
   }
   // =====================================
