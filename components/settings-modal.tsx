@@ -432,7 +432,7 @@ export default function SettingsModal({
           scrollbarWidth: "none",
           msOverflowStyle: "none"
         }}
-        className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 max-h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:hidden max-w-md w-full shadow-2xl"
+        className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 max-h-[400px] overflow-y-scroll [&::-webkit-scrollbar]:hidden max-w-md w-full shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
