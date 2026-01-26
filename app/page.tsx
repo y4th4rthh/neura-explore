@@ -15,12 +15,27 @@ export default function Home() {
   const [showSettings, setShowSettings] = useState(false)
   const [wallpaper, setWallpaper] = useState('')
   const [showUpdater, setShowUpdater] = useState(false)
+  const [greeting, setGreeting] = useState("")
 
   useEffect(() => {
     // Load wallpaper from localStorage on mount
     const savedWallpaper = localStorage.getItem('neura-wallpaper') || ''
     setWallpaper(savedWallpaper)
   }, [])
+
+  useEffect(() => {
+  const hour = new Date().getHours()
+
+  if (hour >= 5 && hour < 12) {
+    setGreeting("Good Morning")
+  } else if (hour >= 12 && hour < 17) {
+    setGreeting("Good Afternoon")
+  } else if (hour >= 17 && hour < 21) {
+    setGreeting("Good Evening")
+  } else {
+    setGreeting("Good Night")
+  }
+}, [])
 
   useEffect(() => {
     // Check initial connection by making a lightweight request
@@ -111,9 +126,10 @@ export default function Home() {
           <Settings className="w-6 h-6" />
         </button>
 
-          {wallpaper && (
+          /* {wallpaper && (
         <WeatherTimeWidget />
-      )}
+      )} */
+        <WeatherTimeWidget />
       </header>
 
       <SettingsModal
@@ -145,7 +161,7 @@ export default function Home() {
             </div>
           )}
           <h1 className="text-4xl md:text-5xl font-light text-white tracking-tight">
-            Neura Explore
+            {greeting}
           </h1>
         </div>
 
