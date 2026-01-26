@@ -282,9 +282,12 @@ export default function Home() {
 
   const getRandomWallpaper = async (category="nature") => {
   const page = Math.floor(Math.random() * 1000);
-  const res = await fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1&page=${page}`, {
-    headers: { Authorization: API_KEY }
-  });
+  const res = await fetch(
+  `https://api.pexels.com/v1/search?query=${category}&per_page=1&page=${page}`,
+  {
+    headers: { Authorization: API_KEY } // TS happy
+  }
+);
   const data = await res.json();
   return data.photos[0].src.original;
 }
