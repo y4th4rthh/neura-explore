@@ -89,7 +89,7 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
   return (
     <div className="mt-4 flex justify-center">
       {/* Quick Links Grid */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-5">
         {links.map((link, index) => (
           <div
             key={index}
