@@ -271,16 +271,25 @@ export default function Home() {
   }
   // =====================================
 
+
+  const API_KEY = process.env.WALLPAPER_API_KEY;
   // Wallpaper categories for variety
   const WALLPAPER_CATEGORIES = [
     'nature', 'landscape', 'minimal', 'abstract', 
     'architecture', 'texture', 'gradient', 'sky'
   ]
 
-  const getRandomWallpaper = () => {
-  const randomSeed = Math.floor(Math.random() * 1000);
-  return `https://picsum.photos/1920/1080?random=${randomSeed}`;
+
+  const getRandomWallpaper = async (category="nature") => {
+  const page = Math.floor(Math.random() * 1000);
+  const res = await fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1&page=${page}`, {
+    headers: { Authorization: API_KEY }
+  });
+  const data = await res.json();
+  return data.photos[0].src.original;
 }
+
+         
   useEffect(() => {
     // Load wallpaper settings from localStorage on mount
     const savedWallpaper = localStorage.getItem('neura-wallpaper')
