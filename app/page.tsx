@@ -33,7 +33,7 @@ export default function Home() {
   } else if (hour >= 17 && hour < 21) {
     setGreeting("Good Evening")
   } else {
-    setGreeting("Good Night")
+    setGreeting("Good Evening")
   }
 }, [])
 
@@ -126,9 +126,9 @@ export default function Home() {
           <Settings className="w-6 h-6" />
         </button>
 
-          /* {wallpaper && (
+          {/* /* {wallpaper && (
         <WeatherTimeWidget />
-      )} */
+      )} */ */}
         <WeatherTimeWidget />
       </header>
 
