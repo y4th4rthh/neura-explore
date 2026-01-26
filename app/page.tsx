@@ -2,7 +2,7 @@
 import SearchBar from "@/components/search-bar"
 import NoInternet from "@/components/no-internet"
 import WeatherTimeWidget from "@/components/weather-time-widget"
-import SettingsModal from "@/components/settings-modal"
+import SettingsModal, { PersonalizationSettings } from "@/components/settings-modal"
 import UpdaterModal from "@/components/updater"
 import { useState, useEffect } from "react"
 import { Zap, Atom, Settings, RefreshCw } from 'lucide-react'
@@ -16,26 +16,37 @@ export default function Home() {
   const [wallpaper, setWallpaper] = useState('')
   const [showUpdater, setShowUpdater] = useState(false)
   const [greeting, setGreeting] = useState("")
+  const [personalization, setPersonalization] = useState<PersonalizationSettings>({
+    userName: '',
+    showWeatherWidget: true,
+    showUpdaterButton: true,
+  })
 
   useEffect(() => {
     // Load wallpaper from localStorage on mount
     const savedWallpaper = localStorage.getItem('neura-wallpaper') || ''
     setWallpaper(savedWallpaper)
+
+    const savedPersonalization = localStorage.getItem('neura-personalization')
+    if (savedPersonalization) {
+      setPersonalization(JSON.parse(savedPersonalization))
+    }
   }, [])
 
-  useEffect(() => {
-  const hour = new Date().getHours()
+   useEffect(() => {
+    const hour = new Date().getHours()
+    const baseName = personalization.userName ? `, ${personalization.userName}` : ''
 
-  if (hour >= 5 && hour < 12) {
-    setGreeting("Good Morning")
-  } else if (hour >= 12 && hour < 17) {
-    setGreeting("Good Afternoon")
-  } else if (hour >= 17 && hour < 21) {
-    setGreeting("Good Evening")
-  } else {
-    setGreeting("Good Evening")
-  }
-}, [])
+    if (hour >= 5 && hour < 12) {
+      setGreeting(`Good Morning${baseName}`)
+    } else if (hour >= 12 && hour < 17) {
+      setGreeting(`Good Afternoon${baseName}`)
+    } else if (hour >= 17 && hour < 21) {
+      setGreeting(`Good Evening${baseName}`)
+    } else {
+      setGreeting(`Good Evening${baseName}`)
+    }
+  }, [personalization.userName])
 
   useEffect(() => {
     // Check initial connection by making a lightweight request
@@ -77,6 +88,11 @@ export default function Home() {
     setShowSettings(false)
   }
 
+   const handlePersonalizationChange = (newSettings: PersonalizationSettings) => {
+    setPersonalization(newSettings)
+    localStorage.setItem('neura-personalization', JSON.stringify(newSettings))
+  }
+
   // Show loading state while checking connection
   if (!hasChecked) {
     return (
@@ -109,7 +125,7 @@ export default function Home() {
       }}
     >
       <header className="fixed top-0 right-0 p-6 z-30 flex items-start gap-4">
-
+         {personalization.showUpdaterButton && (
         <button
     onClick={() => setShowUpdater(true)}
     className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
@@ -117,6 +133,7 @@ export default function Home() {
   >
     <RefreshCw className="w-6 h-6" />
   </button>
+      )}
         
         <button
           onClick={() => setShowSettings(true)}
@@ -129,7 +146,7 @@ export default function Home() {
           {/* /* {wallpaper && (
         <WeatherTimeWidget />
       )} */ */}
-        <WeatherTimeWidget />
+        {personalization.showWeatherWidget && <WeatherTimeWidget />}
       </header>
 
       <SettingsModal
@@ -137,6 +154,8 @@ export default function Home() {
         onClose={() => setShowSettings(false)}
         onWallpaperChange={handleWallpaperChange}
         currentWallpaper={wallpaper}
+        onPersonalizationChange={handlePersonalizationChange}
+        currentPersonalization={personalization}
       />
 
       <UpdaterModal
