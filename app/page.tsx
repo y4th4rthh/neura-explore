@@ -278,12 +278,9 @@ export default function Home() {
   ]
 
   const getRandomWallpaper = () => {
-    const category = WALLPAPER_CATEGORIES[Math.floor(Math.random() * WALLPAPER_CATEGORIES.length)]
-    const randomSeed = Math.floor(Math.random() * 1000)
-    // Using Unsplash Source API for random high-quality images
-    return `https://source.unsplash.com/1920x1080/?${category}&sig=${randomSeed}`
-  }
-
+  const randomSeed = Math.floor(Math.random() * 1000);
+  return `https://picsum.photos/1920/1080?random=${randomSeed}`;
+}
   useEffect(() => {
     // Load wallpaper settings from localStorage on mount
     const savedWallpaper = localStorage.getItem('neura-wallpaper')
