@@ -97,9 +97,8 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
           >
             <a
               href={link.url}
-              target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-1 p-1.5 rounded-md bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 hover:shadow-lg w-16"
+              className="flex flex-col items-center gap-1 p-1.5 rounded-md bg-white/10 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-xl hover:shadow-lg w-16"
             >
               <div className="relative">
                 <img
@@ -130,12 +129,12 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
         {/* Add New Link Button */}
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex flex-col items-center justify-center gap-1 p-1.5 rounded-md bg-white/5 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all duration-300 group w-16"
+          className="flex flex-col items-center justify-center gap-1 p-1.5 rounded-md bg-white/10 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all backdrop-blur-xl duration-300 group w-16"
         >
-          <div className="flex items-center justify-center w-6 h-6 rounded bg-white/10 group-hover:bg-orange-500/20 transition-colors">
-            <Plus className="w-3 h-3 text-white/60 group-hover:text-orange-500 transition-colors" />
+          <div className="flex items-center justify-center w-6 h-6 rounded bg-white/20 group-hover:bg-orange-500/20 transition-colors">
+            <Plus className="w-3 h-3 text-white/70 group-hover:text-orange-500 transition-colors" />
           </div>
-          <span className="text-[8px] text-center text-white/50 group-hover:text-orange-500 transition-colors line-clamp-1">
+          <span className="text-[8px] text-center text-white/70 group-hover:text-orange-500 transition-colors line-clamp-1">
             Add
           </span>
         </button>
