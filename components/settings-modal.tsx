@@ -8,6 +8,14 @@ interface SettingsModalProps {
   onClose: () => void
   onWallpaperChange: (wallpaper: string) => void
   currentWallpaper: string
+  onPersonalizationChange: (settings: PersonalizationSettings) => void
+  currentPersonalization: PersonalizationSettings
+}
+
+export interface PersonalizationSettings {
+  userName: string
+  showWeatherWidget: boolean
+  showUpdaterButton: boolean
 }
 
 export default function SettingsModal({
@@ -15,13 +23,25 @@ export default function SettingsModal({
   onClose,
   onWallpaperChange,
   currentWallpaper,
+   onPersonalizationChange,
+  currentPersonalization,
 }: SettingsModalProps) {
   const [wallpaperUrl, setWallpaperUrl] = useState(currentWallpaper)
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+   const [userName, setUserName] = useState(currentPersonalization.userName)
+  const [showWeatherWidget, setShowWeatherWidget] = useState(currentPersonalization.showWeatherWidget)
+  const [showUpdaterButton, setShowUpdaterButton] = useState(currentPersonalization.showUpdaterButton)
 
   useEffect(() => {
     setWallpaperUrl(currentWallpaper)
   }, [currentWallpaper])
+
+   useEffect(() => {
+    setUserName(currentPersonalization.userName)
+    setShowWeatherWidget(currentPersonalization.showWeatherWidget)
+    setShowUpdaterButton(currentPersonalization.showUpdaterButton)
+  }, [currentPersonalization])
+
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -49,6 +69,14 @@ export default function SettingsModal({
     onWallpaperChange('')
   }
 
+  const handleSavePersonalization = () => {
+    onPersonalizationChange({
+      userName,
+      showWeatherWidget,
+      showUpdaterButton,
+    })
+  }
+
   if (!isOpen) return null
 
   return (
@@ -67,6 +95,67 @@ export default function SettingsModal({
             <X className="w-6 h-6" />
           </button>
         </div>
+
+          <div className="space-y-4 mb-8 pb-8 border-b border-white/10">
+          <h3 className="text-lg font-medium text-white">Personalization</h3>
+
+          {/* Name Input */}
+          <div className="space-y-2">
+            <label className="block">
+              <span className="text-sm text-gray-300 mb-2 block">What should Neura call you?</span>
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Enter your name"
+                className="w-full bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 focus:border-orange-500 focus:outline-none text-sm"
+              />
+            </label>
+          </div>
+
+          {/* Weather Widget Toggle */}
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm text-gray-300">Show Weather Widget</span>
+            <button
+              onClick={() => setShowWeatherWidget(!showWeatherWidget)}
+              className={`relative w-12 h-6 rounded-full transition-colors ${
+                showWeatherWidget ? 'bg-orange-500' : 'bg-gray-600'
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
+                  showWeatherWidget ? 'translate-x-6' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Updater Button Toggle */}
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm text-gray-300">Show Updater Button</span>
+            <button
+              onClick={() => setShowUpdaterButton(!showUpdaterButton)}
+              className={`relative w-12 h-6 rounded-full transition-colors ${
+                showUpdaterButton ? 'bg-orange-500' : 'bg-gray-600'
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
+                  showUpdaterButton ? 'translate-x-6' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={handleSavePersonalization}
+            className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm"
+          >
+            Save Personalization
+          </button>
+        </div>
+
 
         {/* Wallpaper Section */}
         <div className="space-y-4">
