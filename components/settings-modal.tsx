@@ -84,7 +84,13 @@ export default function SettingsModal({
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
       />
-      <div className=" bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 max-h-[500px] overflow-y-scroll no-scrollbar max-w-md w-full shadow-2xl">
+      <div
+         style={{
+    overflowY: "scroll",
+    scrollbarWidth: "none",        // Firefox
+    msOverflowStyle: "none"        // IE / old Edge
+  }}
+        className=" bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 max-h-[500px] overflow-y-scroll [&::-webkit-scrollbar]:hidden max-w-md w-full shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-white">Settings</h2>
