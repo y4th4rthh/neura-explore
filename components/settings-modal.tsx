@@ -109,7 +109,7 @@ export default function SettingsModal({
             scrollbarWidth: "none",
             msOverflowStyle: "none"
           }}
-          className='max-h-[500px] overflow-y-scroll [&::-webkit-scrollbar]:hidden'
+          className='max-h-[400px] overflow-y-scroll [&::-webkit-scrollbar]:hidden'
         >
 
           <div className="space-y-4 mb-8 pb-8 border-b border-white/10">
