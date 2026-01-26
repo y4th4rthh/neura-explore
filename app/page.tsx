@@ -143,9 +143,6 @@ export default function Home() {
           <Settings className="w-6 h-6" />
         </button>
 
-          {/* /* {wallpaper && (
-        <WeatherTimeWidget />
-      )} */ */}
         {personalization.showWeatherWidget && <WeatherTimeWidget />}
       </header>
 
