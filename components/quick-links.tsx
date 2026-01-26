@@ -131,12 +131,12 @@ export default function QuickLinks({ links, onLinksChange }: QuickLinksProps) {
           onClick={() => setShowAddModal(true)}
           className="flex flex-col items-center justify-center gap-1 p-1.5 rounded-md bg-white/10 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/5 transition-all backdrop-blur-xl duration-300 group w-16"
         >
-          <div className="flex items-center justify-center w-12 h-12 rounded bg-transparent transition-colors">
-            <Plus className="w-6 h-6 text-white/70 group-hover:text-orange-500 transition-colors" />
+          <div className="flex items-center justify-center w-6 h-6 rounded bg-transparent transition-colors">
+            <Plus className="w-3 h-3 text-white/70 group-hover:text-orange-500 transition-colors" />
           </div>
-          {/* <span className="text-[8px] text-center text-white/70 group-hover:text-orange-500 transition-colors line-clamp-1">
+          <span className="text-[8px] text-center text-white/70 group-hover:text-orange-500 transition-colors line-clamp-1">
             Add
-          </span> */}
+          </span> 
         </button>
       </div>
 
