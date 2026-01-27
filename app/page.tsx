@@ -28,8 +28,8 @@ export default function Home() {
   // Customize your message here:
   const CUSTOM_MESSAGE = {
     type: 'text', // 'text' or 'image'
-    content: 'Happy Republic Day!', // Text content or image URL
-    link: '', // Optional: URL to navigate when clicked (leave empty for no link)
+    content: '🚀 Try the new v11.1 prerelease update!', // Text content or image URL
+    link: 'https://github.com/y4th4rthh/neura.ai-releases/releases/download/v11.1/neura.explore.exe', // Optional: URL to navigate when clicked (leave empty for no link)
   }
   // =====================================
 
