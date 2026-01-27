@@ -106,7 +106,7 @@ export default function Home() {
 
   const handleCustomMessageClick = () => {
     if (CUSTOM_MESSAGE.link) {
-      window.open(CUSTOM_MESSAGE.link, '_blank')
+      window.open(CUSTOM_MESSAGE.link)
     }
   }
 
