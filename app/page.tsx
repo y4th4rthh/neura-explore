@@ -1,6 +1,7 @@
 
 "use client"
 import SearchBar from "@/components/search-bar"
+import { useRouter } from "next/navigation";
 import NoInternet from "@/components/no-internet"
 import WeatherTimeWidget from "@/components/weather-time-widget"
 import SettingsModal, { PersonalizationSettings } from "@/components/settings-modal"
@@ -9,6 +10,7 @@ import { useState, useEffect } from "react"
 import { Zap, Atom, Settings, RefreshCw } from 'lucide-react'
 
 export default function Home() {
+  const router = useRouter();
   const [showGlobe, setShowGlobe] = useState(true)
   const [isOnline, setIsOnline] = useState(true)
   const [hasChecked, setHasChecked] = useState(false)
@@ -106,7 +108,7 @@ export default function Home() {
 
   const handleCustomMessageClick = () => {
     if (CUSTOM_MESSAGE.link) {
-      window.open(CUSTOM_MESSAGE.link)
+      router.push(CUSTOM_MESSAGE.link)
     }
   }
 
