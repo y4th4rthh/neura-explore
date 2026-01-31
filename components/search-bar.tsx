@@ -119,7 +119,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="w-full max-w-4xl max-[1250px]:max-w-2xl">
+    <div className="w-full max-w-4xl max-[1000px]:max-w-2xl max-[1350px]:max-w-3xl">
       {/* Search Input Container */}
       <div className="relative">
         <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-[2px] border-white/25 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
