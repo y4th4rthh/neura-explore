@@ -119,10 +119,10 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="w-full max-w-4xl max-[1000px]:max-w-2xl">
+    <div className="w-full max-w-4xl max-[1250px]:max-w-2xl">
       {/* Search Input Container */}
       <div className="relative">
-        <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-[2px] border-white/25 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
+        <div className="text-gray-200 bg-[#FFFFFF1A] backdrop-blur-md w-full px-3 py-2 pr-10 border border-[2px] border-white/25 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500">
           <div className="flex items-center gap-4">
             {/* Search Icon */}
             <svg className="w-5 h-5 text-white/40 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
