@@ -9,6 +9,8 @@ import UpdaterModal from "@/components/updater"
 import { useState, useEffect } from "react"
 import { Zap, Atom, Settings, RefreshCw } from 'lucide-react'
 
+const DEFAULT_WALLPAPER = 'https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg'
+
 export default function Home() {
   const router = useRouter();
   const [showGlobe, setShowGlobe] = useState(true)
@@ -16,7 +18,7 @@ export default function Home() {
   const [hasChecked, setHasChecked] = useState(false)
   const [showWhatsNew, setShowWhatsNew] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [wallpaper, setWallpaper] = useState('')
+  const [wallpaper, setWallpaper] = useState(DEFAULT_WALLPAPER)
   const [showUpdater, setShowUpdater] = useState(false)
   const [greeting, setGreeting] = useState("")
   const [personalization, setPersonalization] = useState<PersonalizationSettings>({
@@ -37,8 +39,13 @@ export default function Home() {
 
   useEffect(() => {
     // Load wallpaper from localStorage on mount
-    const savedWallpaper = localStorage.getItem('neura-wallpaper') || ''
-    setWallpaper(savedWallpaper)
+    const savedWallpaper = localStorage.getItem('neura-wallpaper')
+    if (savedWallpaper) {
+      setWallpaper(savedWallpaper)
+    } else {
+      setWallpaper(DEFAULT_WALLPAPER)
+      localStorage.setItem('neura-wallpaper', DEFAULT_WALLPAPER)
+    }
 
     const savedPersonalization = localStorage.getItem('neura-personalization')
     if (savedPersonalization) {
