@@ -138,7 +138,7 @@ export default function Home() {
       style={{
         background: wallpaper
           ? `url(${wallpaper}) center/cover no-repeat fixed`
-          : `url(https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg)`,
+          : `url(https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg) center/cover no-repeat fixed`,
       }}
     >
       <header className="fixed top-0 right-0 p-6 z-30 flex items-start gap-4">
