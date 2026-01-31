@@ -104,6 +104,7 @@ export default function Home() {
 
   const handleWallpaperChange = (newWallpaper: string) => {
     setWallpaper(newWallpaper)
+    localStorage.removeItem('neura-wallpaper')
     localStorage.setItem('neura-wallpaper', newWallpaper)
     setShowSettings(false)
   }
