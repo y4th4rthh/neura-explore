@@ -39,7 +39,7 @@ export default function Home() {
 
   useEffect(() => {
     // Load wallpaper from localStorage on mount
-    const savedWallpaper = localStorage.getItem('neura-wallpaper')
+    const savedWallpaper = localStorage.getItem('neura-wallpaper') : ''
     if (savedWallpaper) {
       setWallpaper(savedWallpaper)
     } else {
