@@ -18,7 +18,12 @@ export default function Home() {
   const [hasChecked, setHasChecked] = useState(false)
   const [showWhatsNew, setShowWhatsNew] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [wallpaper, setWallpaper] = useState(DEFAULT_WALLPAPER)
+  const [wallpaper, setWallpaper] = useState(() => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('neura-wallpaper') || DEFAULT_WALLPAPER
+  }
+  return DEFAULT_WALLPAPER
+})
   const [showUpdater, setShowUpdater] = useState(false)
   const [greeting, setGreeting] = useState("")
   const [personalization, setPersonalization] = useState<PersonalizationSettings>({
@@ -42,9 +47,6 @@ export default function Home() {
     const savedWallpaper = localStorage.getItem('neura-wallpaper')
     if (savedWallpaper) {
       setWallpaper(savedWallpaper)
-    } else {
-      setWallpaper(DEFAULT_WALLPAPER)
-      localStorage.setItem('neura-wallpaper', DEFAULT_WALLPAPER)
     }
 
     const savedPersonalization = localStorage.getItem('neura-personalization')
