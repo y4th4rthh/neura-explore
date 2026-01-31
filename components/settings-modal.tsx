@@ -68,9 +68,9 @@ export default function SettingsModal({
   }
 
   const resetWallpaper = () => {
-    setWallpaperUrl('https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg')
-    setUploadedImage('https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg')
-    onWallpaperChange('https://raw.githubusercontent.com/y4th4rthh/neura-explore/refs/heads/main/app/macOS-Catalina-Light-mode.jpg')
+    setWallpaperUrl('')
+    setUploadedImage(null)
+    onWallpaperChange('')
   }
 
   const handleSavePersonalization = () => {
