@@ -348,29 +348,29 @@ export default function SettingsModal({
   }
 
   // Network speed test function
-  const runNetworkTest = async () => {
+  const runNetworkTest = async (): Promise<void> => {
     setIsTestingNetwork(true)
     setNetworkError(null)
     
     try {
-      const testDownload = await testDownloadSpeed()
-      const testUpload = await testUploadSpeed()
-      const testLatency = await testLatency()
-      const testPacketLoss = await estimatePacketLoss()
+      const testDownloadResult = await testDownloadSpeed()
+      const testUploadResult = await testUploadSpeed()
+      const testLatencyResult = await testLatency()
+      const testPacketLossResult = await estimatePacketLoss()
 
       // Determine speed level based on download speed
       let speedLevel: 'fast' | 'moderate' | 'slow' = 'moderate'
-      if (testDownload > 25) speedLevel = 'fast'
-      else if (testDownload < 5) speedLevel = 'slow'
+      if (testDownloadResult > 25) speedLevel = 'fast'
+      else if (testDownloadResult < 5) speedLevel = 'slow'
 
       // Determine if data saver should be enabled
-      const shouldEnableDataSaver = testDownload < 10 || testPacketLoss > 5
+      const shouldEnableDataSaver = testDownloadResult < 10 || testPacketLossResult > 5
 
       const stats: NetworkStats = {
-        download: Math.round(testDownload * 100) / 100,
-        upload: Math.round(testUpload * 100) / 100,
-        latency: Math.round(testLatency),
-        packetLoss: Math.round(testPacketLoss * 100) / 100,
+        download: Math.round(testDownloadResult * 100) / 100,
+        upload: Math.round(testUploadResult * 100) / 100,
+        latency: Math.round(testLatencyResult),
+        packetLoss: Math.round(testPacketLossResult * 100) / 100,
         speedLevel,
         shouldEnableDataSaver,
       }
@@ -399,7 +399,8 @@ export default function SettingsModal({
       const speedMbps = (fileSizeInBytes * 8) / (duration * 1_000_000)
       
       return speedMbps
-    } catch {
+    } catch (error) {
+      console.error('Download speed test error:', error)
       return 0
     }
   }
@@ -415,8 +416,9 @@ export default function SettingsModal({
         method: 'POST',
         body: testData,
         mode: 'no-cors',
-      }).catch(() => {
+      }).catch((error) => {
         // Expected to fail due to CORS, but timing still works
+        console.error('Upload test request error:', error)
       })
       
       const endTime = performance.now()
@@ -424,14 +426,15 @@ export default function SettingsModal({
       const speedMbps = (testData.size * 8) / (duration * 1_000_000)
       
       return Math.max(0.5, speedMbps) // Minimum 0.5 Mbps
-    } catch {
+    } catch (error) {
+      console.error('Upload speed test error:', error)
       return 5 // Default reasonable upload speed
     }
   }
 
   // Test latency
   const testLatency = async (): Promise<number> => {
-    let totalLatency = 0
+    let totalLatency: number = 0
     const pings = 3
 
     for (let i = 0; i < pings; i++) {
@@ -444,7 +447,8 @@ export default function SettingsModal({
         })
         const endTime = performance.now()
         totalLatency += endTime - startTime
-      } catch {
+      } catch (error) {
+        console.error('Latency test error:', error)
         totalLatency += 100 // Default latency on error
       }
     }
@@ -454,7 +458,7 @@ export default function SettingsModal({
 
   // Estimate packet loss
   const estimatePacketLoss = async (): Promise<number> => {
-    let successfulRequests = 0
+    let successfulRequests: number = 0
     const totalRequests = 5
 
     for (let i = 0; i < totalRequests; i++) {
@@ -464,8 +468,9 @@ export default function SettingsModal({
           mode: 'no-cors',
         })
         successfulRequests++
-      } catch {
+      } catch (error) {
         // Request failed
+        console.error('Packet loss test error:', error)
       }
     }
 
