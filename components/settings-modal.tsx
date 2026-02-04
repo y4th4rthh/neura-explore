@@ -606,16 +606,6 @@ export default function SettingsModal({
               <h3 className="text-lg font-medium text-white">Network & Diagnostics</h3>
             </div>
 
-            {/* Test Button */}
-            <button
-              onClick={runNetworkTest}
-              disabled={isTestingNetwork}
-              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
-            >
-              <Activity className="w-4 h-4" />
-              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
-            </button>
-
             {/* Error Message */}
             {networkError && (
               <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
@@ -651,17 +641,20 @@ export default function SettingsModal({
                     <p className={`text-sm font-medium ${getSpeedRecommendation()!.color}`}>
                       {getSpeedRecommendation()!.recommendation}
                     </p>
-                    {getSpeedRecommendation()!.shouldEnableDataSaver && (
-                      <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
-                        <p className="text-xs text-orange-400">
-                          💡 Tip: Consider enabling Data Saver mode to optimize performance on your connection.
-                        </p>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
             )}
+
+             {/* Test Button */}
+            <button
+              onClick={runNetworkTest}
+              disabled={isTestingNetwork}
+              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
+            >
+              <Activity className="w-4 h-4" />
+              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
+            </button>
           </div>
 
           {/* Wallpaper Section */}
