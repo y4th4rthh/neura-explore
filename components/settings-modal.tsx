@@ -602,15 +602,7 @@ export default function SettingsModal({
               <h3 className="text-lg font-medium text-white">Network & Diagnostics</h3>
             </div>
 
-            {/* Test Button */}
-            <button
-              onClick={runNetworkTest}
-              disabled={isTestingNetwork}
-              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
-            >
-              <Activity className="w-4 h-4" />
-              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
-            </button>
+           
 
             {/* Error Message */}
             {networkError && (
@@ -658,6 +650,15 @@ export default function SettingsModal({
                 )}
               </div>
             )}
+             {/* Test Button */}
+            <button
+              onClick={runNetworkTest}
+              disabled={isTestingNetwork}
+              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
+            >
+              <Activity className="w-4 h-4" />
+              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
+            </button>
           </div>
 
           {/* Wallpaper Section */}
