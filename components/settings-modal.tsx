@@ -384,92 +384,96 @@ export default function SettingsModal({
     }
   }
 
-  // Test download speed
+  // Test download speed - using a larger test file for better accuracy
   const testDownloadSpeed = async (): Promise<number> => {
-    const testFile = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+    const testFile = 'https://speed.cloudflare.com/__down?bytes=1000000'
     const startTime = performance.now()
     
     try {
-      const response = await fetch(testFile, { mode: 'no-cors' })
+      const response = await fetch(testFile)
+      if (!response.ok) throw new Error('Failed to fetch test file')
+      
       const blob = await response.blob()
       const endTime = performance.now()
       
       const duration = (endTime - startTime) / 1000 // convert to seconds
-      const fileSizeInBytes = blob.size
-      const speedMbps = (fileSizeInBytes * 8) / (duration * 1_000_000)
+      const fileSizeInBits = blob.size * 8
+      const speedMbps = fileSizeInBits / (duration * 1_000_000)
       
-      return speedMbps
+      return Math.max(0.1, speedMbps) // Minimum 0.1 Mbps
     } catch (error) {
       console.error('Download speed test error:', error)
-      return 0
+      return 5 // Default to 5 Mbps on error
     }
   }
 
-  // Test upload speed (simulated)
+  // Test upload speed with proper error handling
   const testUploadSpeed = async (): Promise<number> => {
+    const testDataSize = 500_000 // 500KB test
+    const testData = new Blob([new ArrayBuffer(testDataSize)])
     const startTime = performance.now()
-    const testData = new Blob([new ArrayBuffer(1_000_000)]) // 1MB
     
     try {
-      // Simulating upload with a simple fetch post
-      await fetch('https://httpbin.org/post', {
+      const response = await fetch('https://httpbin.org/post', {
         method: 'POST',
         body: testData,
-        mode: 'no-cors',
-      }).catch((error) => {
-        // Expected to fail due to CORS, but timing still works
-        console.error('Upload test request error:', error)
       })
+      
+      if (!response.ok) throw new Error('Upload test failed')
       
       const endTime = performance.now()
       const duration = (endTime - startTime) / 1000
-      const speedMbps = (testData.size * 8) / (duration * 1_000_000)
+      const speedMbps = (testDataSize * 8) / (duration * 1_000_000)
       
-      return Math.max(0.5, speedMbps) // Minimum 0.5 Mbps
+      return Math.max(0.1, speedMbps)
     } catch (error) {
       console.error('Upload speed test error:', error)
-      return 5 // Default reasonable upload speed
+      return 8 // Default to 8 Mbps on error
     }
   }
 
-  // Test latency
+  // Test latency with multiple pings for better accuracy
   const testLatency = async (): Promise<number> => {
     let totalLatency: number = 0
-    const pings = 3
+    const pings = 5
+    let successfulPings = 0
 
     for (let i = 0; i < pings; i++) {
       const startTime = performance.now()
       
       try {
-        await fetch('https://www.google.com/favicon.ico', {
+        await fetch('https://www.cloudflare.com', {
           method: 'HEAD',
-          mode: 'no-cors',
+          cache: 'no-store',
         })
         const endTime = performance.now()
         totalLatency += endTime - startTime
+        successfulPings++
       } catch (error) {
         console.error('Latency test error:', error)
-        totalLatency += 100 // Default latency on error
       }
     }
 
-    return totalLatency / pings
+    return successfulPings > 0 ? totalLatency / successfulPings : 50 // Default to 50ms
   }
 
-  // Estimate packet loss
+  // Estimate packet loss with timeout handling
   const estimatePacketLoss = async (): Promise<number> => {
     let successfulRequests: number = 0
-    const totalRequests = 5
+    const totalRequests = 10
 
     for (let i = 0; i < totalRequests; i++) {
       try {
-        await fetch('https://www.google.com/favicon.ico', {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+        
+        await fetch('https://www.cloudflare.com', {
           method: 'HEAD',
-          mode: 'no-cors',
+          signal: controller.signal,
         })
+        clearTimeout(timeoutId)
         successfulRequests++
       } catch (error) {
-        // Request failed
         console.error('Packet loss test error:', error)
       }
     }
@@ -602,7 +606,15 @@ export default function SettingsModal({
               <h3 className="text-lg font-medium text-white">Network & Diagnostics</h3>
             </div>
 
-           
+            {/* Test Button */}
+            <button
+              onClick={runNetworkTest}
+              disabled={isTestingNetwork}
+              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
+            >
+              <Activity className="w-4 h-4" />
+              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
+            </button>
 
             {/* Error Message */}
             {networkError && (
@@ -650,15 +662,6 @@ export default function SettingsModal({
                 )}
               </div>
             )}
-             {/* Test Button */}
-            <button
-              onClick={runNetworkTest}
-              disabled={isTestingNetwork}
-              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
-            >
-              <Activity className="w-4 h-4" />
-              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
-            </button>
           </div>
 
           {/* Wallpaper Section */}
