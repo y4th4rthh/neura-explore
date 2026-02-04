@@ -492,7 +492,7 @@ export default function SettingsModal({
       recommendation = 'Your connection is adequate for most tasks.'
       color = 'text-yellow-400'
     } else {
-      recommendation = 'Your connection is slow. Consider enabling Data Saver.'
+      recommendation = 'The Connection is slow. Consider switching to a better network.'
       color = 'text-red-400'
     }
 
@@ -599,7 +599,6 @@ export default function SettingsModal({
           {/* Network & Diagnostics Section */}
           <div className="space-y-4 mb-8 pb-8 border-b border-white/10">
             <div className="flex items-center gap-2">
-              <Wifi className="w-5 h-5 text-orange-500" />
               <h3 className="text-lg font-medium text-white">Network & Diagnostics</h3>
             </div>
 
@@ -649,8 +648,8 @@ export default function SettingsModal({
                       {getSpeedRecommendation()!.recommendation}
                     </p>
                     {getSpeedRecommendation()!.shouldEnableDataSaver && (
-                      <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                        <p className="text-xs text-yellow-400">
+                      <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                        <p className="text-xs text-orange-400">
                           💡 Tip: Consider enabling Data Saver mode to optimize performance on your connection.
                         </p>
                       </div>
