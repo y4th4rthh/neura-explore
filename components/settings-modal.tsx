@@ -577,19 +577,7 @@ export default function SettingsModal({
             </div>
 
             {/* Updater Button Toggle */}
-            <div className="flex items-center justify-between py-2">
-              <span className="text-sm text-gray-300">Show Updater Button</span>
-              <button
-                onClick={() => setShowUpdaterButton(!showUpdaterButton)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${showUpdaterButton ? 'bg-orange-500' : 'bg-gray-600'
-                  }`}
-              >
-                <div
-                  className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${showUpdaterButton ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                />
-              </button>
-            </div>
+          
 
             {/* Save Button */}
             <button
@@ -600,62 +588,7 @@ export default function SettingsModal({
             </button>
           </div>
 
-          {/* Network & Diagnostics Section */}
-          <div className="space-y-4 mb-8 pb-8 border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-medium text-white">Network & Diagnostics</h3>
-            </div>
-
-            {/* Error Message */}
-            {networkError && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                <p className="text-sm text-red-400">{networkError}</p>
-              </div>
-            )}
-
-            {/* Network Stats */}
-            {networkStats && (
-              <div className="space-y-3">
-                <div className="bg-gray-800/50 rounded-lg p-4 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">Download Speed</span>
-                    <span className="text-sm font-semibold text-white">{networkStats.download} Mbps</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">Upload Speed</span>
-                    <span className="text-sm font-semibold text-white">{networkStats.upload} Mbps</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">Latency</span>
-                    <span className="text-sm font-semibold text-white">{networkStats.latency} ms</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">Packet Loss</span>
-                    <span className="text-sm font-semibold text-white">{networkStats.packetLoss}%</span>
-                  </div>
-                </div>
-
-                {/* Speed Recommendation */}
-                {getSpeedRecommendation() && (
-                  <div className="space-y-2">
-                    <p className={`text-sm font-medium ${getSpeedRecommendation()!.color}`}>
-                      {getSpeedRecommendation()!.recommendation}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-
-             {/* Test Button */}
-            <button
-              onClick={runNetworkTest}
-              disabled={isTestingNetwork}
-              className="w-full py-2 px-4 bg-orange-500/10 hover:bg-orange-500/20 disabled:opacity-50 text-orange-500 border border-orange-500/20 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
-            >
-              <Activity className="w-4 h-4" />
-              {isTestingNetwork ? 'Testing...' : 'Check Network Speed'}
-            </button>
-          </div>
+          
 
           {/* Wallpaper Section */}
           <div className="space-y-4">
