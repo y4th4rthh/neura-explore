@@ -30,8 +30,8 @@ export default function Home() {
   // Customize your message here:
   const CUSTOM_MESSAGE = {
     type: 'text', // 'text' or 'image'
-    content: '🚀 Try the new v11.1 prerelease update!', // Text content or image URL
-    link: 'https://github.com/y4th4rthh/neura.ai-releases/releases/download/v11.1/neura.explore.exe', // Optional: URL to navigate when clicked (leave empty for no link)
+    content: '', // Text content or image URL
+    link: '', // Optional: URL to navigate when clicked (leave empty for no link)
   }
   // =====================================
 
@@ -169,15 +169,6 @@ export default function Home() {
           )
         )}
 
-        {personalization.showUpdaterButton && (
-          <button
-            onClick={() => setShowUpdater(true)}
-            className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
-            title="Check for updates"
-          >
-            <RefreshCw className="w-6 h-6" />
-          </button>
-        )}
         
         <button
           onClick={() => setShowSettings(true)}
