@@ -148,7 +148,7 @@ export default function Home() {
             <div
               onClick={handleCustomMessageClick}
               className={`text-white/80 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-sm font-medium ${
-                CUSTOM_MESSAGE.link ? 'cursor-pointer hover:bg-white/20 transition-colors' : ''
+                CUSTOM_MESSAGE.link ? 'cursor-pointer hover:bg-white/20 transition-colors' : 'hidden'
               }`}
               title={CUSTOM_MESSAGE.link ? 'Click to learn more' : ''}
             >
